@@ -1,0 +1,97 @@
+<UnitedApp>:
+    tab_pos: 'bottom_mid'
+    do_default_tab: False
+    tab_height: 100
+    tab_width: root.width / 4
+    tab_height: root.width / 7
+    TabbedPanelItem:
+        id: settings_tab
+        on_release: root.settings_tab_click()
+        background_normal: 'static/settings.png'
+        background_down : 'static/settings.png'
+        background_color: (1,0,0,1) if self.state == 'normal' else (0,1,0,1)
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                size_hint: .1, 1
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    size_hint: 1, .4
+                Label:
+                    text: '[b]USERNAME[b]'
+                    markup: 'True'
+                    font_size: self.parent.width/12
+                TextInput:
+                    size_hint: 1, .5
+                    id: settings_username
+                    font_size: self.parent.width/14
+                    halign: 'center'
+                    valign: 'center'
+                Label:
+                    markup: 'True'
+                    text: '[b]PASSWORD[b]'
+                    font_size: self.parent.width/12
+                TextInput:
+                    size_hint: 1, .5
+                    id: settings_password
+                    font_size: self.parent.width/14
+                    halign: 'center'
+                    valign: 'center'
+                Label:
+                    size_hint: 1, 2
+                    id: settings_status_label
+                    text: 'NOT LOGGED'
+                    font_size: self.parent.width/12
+                    color: 1, 0, 0, 1
+                Button:
+                    text: '[b]LOGIN[b]'
+                    markup: 'True'
+                    font_size: self.parent.width/12
+                    on_release: root.login()
+                Label:
+                    size_hint: 1, .7
+            Label:
+                size_hint: .1, 1
+
+    TabbedPanelItem:
+        id: robot_tab
+        on_release: root.robot_tab_click()
+        background_normal: 'static/robot.png'
+        background_down : 'static/robot.png'
+        background_color: (1,0,0,1) if self.state == 'normal' else (0,1,0,1)
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                size_hint: .1, 1
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    size_hint: 1, .1
+                Label:
+                    size_hint: 1, .2
+                    text: '[b]AVAILABLE ROBOTS[b]'
+                    markup: 'True'
+                    font_size: self.parent.width/12
+                Button:
+                    id: robot_available_robots
+                    text: '[b]SELECT ROBOT[b]'
+                    markup: 'True'
+                    font_size: self.parent.width/20
+                    size_hint: 1, .2
+                Label:
+                    size_hint: 1, .7
+            Label:
+                size_hint: .1, 1
+
+    TabbedPanelItem:
+        id: control_tab
+        on_release: root.robot_tab_click()
+        background_normal: 'static/control.png'
+        background_down : 'static/control.png'
+        background_color: (1,0,0,1) if self.state == 'normal' else (0,1,0,1)
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'robot'
+
