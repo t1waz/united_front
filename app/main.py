@@ -22,8 +22,17 @@ class UnitedApp(SettingsTab, RobotTab, ControlTab, TabbedPanel):
 
 
 class TabbedPanelApp(App):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self._app = None
+
     def build(self):
-        return UnitedApp()
+        self._app = UnitedApp()
+        return self._app
+
+    def stop(self, *largs):
+        self._app.terminate_robot_data_process()
 
 
 if __name__ == '__main__':

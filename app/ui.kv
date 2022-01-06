@@ -86,12 +86,77 @@
 
     TabbedPanelItem:
         id: control_tab
-        on_release: root.robot_tab_click()
+        on_release: root.control_tab_click()
         background_normal: 'static/control.png'
         background_down : 'static/control.png'
         background_color: (1,0,0,1) if self.state == 'normal' else (0,1,0,1)
         BoxLayout:
-            orientation: 'vertical'
+            orientation: 'horizontal'
             Label:
-                text: 'robot'
-
+                size_hint: .1, 1
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 5
+                Label:
+                    size_hint: 1, .1
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Label:
+                        size_hint: 1, .2
+                        text: '[b]SPEED[b]'
+                        markup: 'True'
+                        font_size: self.parent.width/12
+                    Label:
+                        id: control_speed_label
+                        markup: 'True'
+                        font_size: self.parent.width/20
+                        size_hint: 1, .2
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Label:
+                        size_hint: 1, .2
+                        text: '[b]POS X[b]'
+                        markup: 'True'
+                        font_size: self.parent.width/12
+                    Label:
+                        id: control_pos_x_label
+                        markup: 'True'
+                        font_size: self.parent.width/20
+                        size_hint: 1, .2
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Label:
+                        size_hint: 1, .2
+                        markup: 'True'
+                        font_size: self.parent.width/12
+                    Label:
+                        id: control_pos_y_label
+                        markup: 'True'
+                        font_size: self.parent.width/20
+                        size_hint: 1, .2
+                BoxLayout:
+                    orientation: 'horizontal'
+                    Label:
+                        size_hint: 1, .2
+                        text: '[b]MODE[b]'
+                        markup: 'True'
+                        font_size: self.parent.width/12
+                    Label:
+                        id: control_mode_label
+                        markup: 'True'
+                        font_size: self.parent.width/20
+                        size_hint: 1, .2
+                Label:
+                    size_hint: 1, .7
+                Button:
+                    text: 'GO AUTO'
+                Button:
+                    text: 'GO IDLE'
+                Button:
+                    text: 'GO MANUAL'
+                Button:
+                    text: 'GO ERROR'
+                Label:
+                    size_hint: 1, .7
+            Label:
+                size_hint: .1, 1

@@ -11,6 +11,11 @@ class BaseTab:
         'post': requests.post,
     }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self._robot_data_process = None
+
     @staticmethod
     def display_error_popup(message):
         error_popup = Popup(
@@ -20,6 +25,10 @@ class BaseTab:
             content=Label(text=message),
         )
         error_popup.open()
+
+    def terminate_robot_data_process(self):
+        if self._robot_data_process:
+            self._robot_data_process.kill()
 
     def _get_response(self, method, url, data=None, is_authenticated=False):
         request_kwargs = {'data': data or {}}

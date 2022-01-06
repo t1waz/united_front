@@ -1,5 +1,7 @@
-BACKEND_URL = 'http://127.0.0.1:8000'
+BACKEND_URL = '127.0.0.1:8000'
 
-LOGIN_URL = f'{BACKEND_URL}/users/obtain_token/'
+LOGIN_URL = f'http://{BACKEND_URL}/users/obtain_token/'
 
-ME_URL = f'{BACKEND_URL}/users/me'
+ME_URL = f'http://{BACKEND_URL}/users/me'
+
+ROBOT_STATUS_WS = f'ws://{BACKEND_URL}/users/robot_status'

@@ -22,6 +22,8 @@ class SettingsTab(BaseTab):
         self._clear_settings_data()
         self._handle_status_label()
 
+        self.terminate_robot_data_process()
+
     def login(self):
         response = self._get_response(
             method='post',

@@ -38,3 +38,5 @@ class RobotTab(BaseTab):
         CACHE['current_robot_uuid'] = getattr(button, 'robot_uuid')
         self.ids.robot_available_robots.text = CACHE['current_robot_uuid']
         self._robot_dropdown.dismiss()
+
+        self.terminate_robot_data_process()
