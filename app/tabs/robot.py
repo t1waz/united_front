@@ -22,8 +22,12 @@ class RobotTab(BaseTab):
         self.ids.robot_available_robots.bind(on_release=self._robot_dropdown.open)
 
     def robot_tab_click(self):
+        if not self.is_logged:
+            self.display_error_popup(message='login first')
+            return
+
         self._robot_dropdown.clear_widgets()
-        self.ids.robot_available_robots.text = 'SELECT ROBOT'
+        self.ids.robot_available_robots.text = CACHE.get('robot_uuid', 'SELECT ROBOT')
 
         response = self._get_response(
             method='get', url=constants.ME_URL, is_authenticated=True
@@ -35,8 +39,9 @@ class RobotTab(BaseTab):
         self._setup_robot_dropdown(robot_data=response.json().get('robots'))
 
     def _robot_dropdown_click(self, button):
-        CACHE['current_robot_uuid'] = getattr(button, 'robot_uuid')
-        self.ids.robot_available_robots.text = CACHE['current_robot_uuid']
+        CACHE['robot_uuid'] = getattr(button, 'robot_uuid')
+
+        self.ids.robot_available_robots.text = CACHE['robot_uuid']
         self._robot_dropdown.dismiss()
 
         self.terminate_robot_data_process()
