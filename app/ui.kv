@@ -127,6 +127,7 @@
                     orientation: 'horizontal'
                     Label:
                         size_hint: 1, .2
+                        text: '[b]POS Y[b]'
                         markup: 'True'
                         font_size: self.parent.width/12
                     Label:
@@ -150,12 +151,16 @@
                     size_hint: 1, .7
                 Button:
                     text: 'GO AUTO'
+                    on_release: root.control_go_auto()
                 Button:
                     text: 'GO IDLE'
+                    on_release: root.control_go_idle()
                 Button:
                     text: 'GO MANUAL'
+                    on_release: root.control_go_manual()
                 Button:
                     text: 'GO ERROR'
+                    on_release: root.control_go_error()
                 Label:
                     size_hint: 1, .7
             Label:

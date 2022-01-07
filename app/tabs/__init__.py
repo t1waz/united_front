@@ -5,12 +5,29 @@ from kivy.uix.popup import Popup
 from cache import CACHE
 
 
-class BaseTab:
+class APIHandler:
     REQUEST_METHOD = {
         'get': requests.get,
         'post': requests.post,
     }
 
+    def get_response(self, method, url, data=None, is_authenticated=False):
+        request_kwargs = {'data': data or {}}
+        if is_authenticated:
+            request_kwargs['headers'] = self.auth_headers
+
+        request_method = self.REQUEST_METHOD.get(method.lower())
+        if not request_method:
+            raise ValueError('invalid method')
+
+        return request_method(url, **request_kwargs)
+
+    @property
+    def auth_headers(self):
+        return {'Authorization': f"Bearer {CACHE.get('access_token')}"}
+
+
+class BaseTab:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -31,21 +48,16 @@ class BaseTab:
             self._robot_data_process.kill()
 
     def _get_response(self, method, url, data=None, is_authenticated=False):
-        request_kwargs = {'data': data or {}}
-        if is_authenticated:
-            request_kwargs['headers'] = self.auth_headers
-
-        request_method = self.REQUEST_METHOD.get(method.lower())
-        if not request_method:
-            raise ValueError('invalid method')
-
         try:
-            return request_method(url, **request_kwargs)
+            return APIHandler().get_response(method, url, data, is_authenticated)
         except requests.RequestException:
-            CACHE['access_token'] = None
             self.display_error_popup(message='external error')
             return
 
     @property
-    def auth_headers(self):
-        return {'Authorization': f"Bearer {CACHE.get('access_token')}"}
+    def is_logged(self):
+        return bool(CACHE.get('access_token'))
+
+    @property
+    def is_robot_selected(self):
+        return bool(CACHE.get('robot_uuid'))
